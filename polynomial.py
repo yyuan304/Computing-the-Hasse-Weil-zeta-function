@@ -24,18 +24,20 @@ class modp(object):
         if self.p != g.p :
             raise ValueError
         return modp(self.p, (self.n * g.n) % self.p)
-    def __div__(self, g: modp):
+
+    def __truediv__(self, g: modp):
         if self.p !=g.p :
             raise ValueError
-        if g.n%p ==0 :
+        if g.n % self.p ==0 :
             raise ZeroDivisionError
         return modp(self.p, (self.n * g.n**(self.p-2))% self.p)
 
-x = modp(5,3)
-y = modp(5,4)
-print(x+y)
-print(x-y)
-print(x*y)
+m1 = modp(5,1)
+m2 = modp(5,2)
+m3 = modp(5,3)
+m4 = modp(5,4)
+m5 = modp(5,5)
+print(m1 / m4)
 
 class polynomial(object):
     def __init__(self, coeff : dict):
@@ -68,7 +70,7 @@ class polynomial(object):
         return 0
                
 
-x = polynomial({0:1,1:2})
-y = polynomial({0:3,1:4})
-print(x+y)
-print((x+y).deg)
+# x = polynomial({0:1,1:2})
+# y = polynomial({0:3,1:4})
+# print(x+y)
+# print((x+y).deg)

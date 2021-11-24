@@ -1,6 +1,12 @@
 class polynomial(object):
-    def __init__(self,deg,coeff):
-        self.deg = deg
-        
+    def __init__(self, coeff):
+        self.coeff = coeff
+        self.deg = max(coeff.keys())
+    
+
+
+x= polynomial({0:3, 1:4})
+
+print(x.deg)
         
         

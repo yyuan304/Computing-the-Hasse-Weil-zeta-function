@@ -5,13 +5,37 @@ class modp(object):
     def __init__(self, p : int, n : int):
         self.p = p
         self.n = n
+        
+    def __repr__(self):
+        return f"{self.n} mod {self.p}"
 
     def __add__(self, other : modp):
         if self.p != other.p :
             raise ValueError
         return modp(self.p, (self.n + other.n) % self.p)
     
-    # and define add, mul, subtract etc.
+    def __neg__(self):
+        return modp(self.p, (-self.n))
+        
+    def __sub__(self, g : modp):
+        return self + (-g)
+    
+    def __mul__(self, g: modp):
+        if self.p != g.p :
+            raise ValueError
+        return modp(self.p, (self.n * g.n) % self.p)
+    def __div__(self, g: modp):
+        if self.p !=g.p :
+            raise ValueError
+        if g.n%p ==0 :
+            raise ZeroDivisionError
+        return modp(self.p, (self.n * g.n**(self.p-2))% self.p)
+
+x = modp(5,3)
+y = modp(5,4)
+print(x+y)
+print(x-y)
+print(x*y)
 
 class polynomial(object):
     def __init__(self, coeff : dict):

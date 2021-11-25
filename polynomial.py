@@ -25,15 +25,12 @@ class modp(object):
         if self.p != g.p :
             raise ValueError
         return modp(self.p, (self.n * g.n) % self.p)
-
     def __truediv__(self, g: modp):
         if self.p !=g.p :
             raise ValueError
-        if g.n % self.p ==0 :
+        if g.n% self.p ==0 :
             raise ZeroDivisionError
-        return modp(self.p, (self.n * g.n**(self.p-2))% self.p)
-
-    def __floordiv__(self, g: modp) : self / g
+        return modp(self.p, (self.n * g.n**(self.p-2))%self.p)
 
     def __eq__(self, g : modp):
         if self.p != g.p : 
@@ -124,4 +121,11 @@ f = g = polynomial_modp(5, { 2 : modp(5, 1) }) # x ^ 2
 x = polynomial_modp(5, {0: modp(5, 1), 1: modp(5, 2)})     # 1 + 2x
 h = polynomial_modp(5, {0: modp(5, 3), 1: modp(5, 4)})     # 3 + 4x
 
+<<<<<<< HEAD
 print(f, g, x, h, f // g, f % x, x // h)
+=======
+x = polynomial({0:modp(5,1),1:modp(5,2)})
+y = polynomial({0:modp(5,3),1:modp(5,1)})
+print(x+y)
+print((x+y).deg)
+>>>>>>> 9a485036e38e03903a0e05752294b91f336c5c36

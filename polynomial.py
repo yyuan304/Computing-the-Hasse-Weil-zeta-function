@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+print(1==2)
 # should we make a class for integer mod p
 class modp(object):
     def __init__(self, p : int, n : int):
@@ -30,7 +30,14 @@ class modp(object):
         if g.n% self.p ==0 :
             raise ZeroDivisionError
         return modp(self.p, (self.n * g.n**(self.p-2))%self.p)
-    
+    def __eq__(self, g: modp):
+        if self.p !=g.p :
+            raise ValueError
+        if (self.n-g.n)% self.p==0:
+            raise True
+        else:
+            raise False
+
 x = modp(5,3)
 y = modp(5,4)
 print(x+y)
@@ -41,7 +48,7 @@ print(x/y)
 
 class polynomial(object):
     def __init__(self, coeff : dict):
-        self.coeff = {k : v for k, v in coeff.items() if v != 0} # remove coefficients that are zero
+        self.coeff = {k : v for k, v in coeff.items() if v != 0 } # remove coefficients that are zero
         self.deg = max(coeff.keys())
 
     def __repr__(self):
@@ -49,7 +56,7 @@ class polynomial(object):
 
     def __add__(self, g : polynomial):
         new_coeff  = dict()
-        for i in range(self.deg + g.deg + 1):
+        for i in range(max(self.deg, g.deg)+1):
             new_coeff[i] = self.coeff.get(i, 0) + g.coeff.get(i, 0)
         return polynomial(new_coeff)
 
@@ -70,7 +77,8 @@ class polynomial(object):
         return 0
                
 
-x = polynomial({0:modp(5,1),1:modp(5,2)})
-y = polynomial({0:modp(5,3),1:modp(5,1)})
+x = polynomial({0:1,1:0,2:2})
+y = polynomial({0:3,1:1,2:-2})
+
 print(x+y)
 print((x+y).deg)

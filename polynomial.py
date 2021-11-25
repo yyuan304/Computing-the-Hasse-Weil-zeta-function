@@ -122,3 +122,8 @@ h = polynomial_modp(5, {0: modp(5, 3), 1: modp(5, 4)})     # 3 + 4x
 
 
 print(f, g, x, h, f // g, f % x, x // h)
+
+u = polynomial_modp(5, {0: modp(5,1), 1: modp(5,2)})
+v = polynomial_modp(5, {0: modp(5,1), 1: modp(5,3)})
+print((u+v).deg)
+print(u+v)

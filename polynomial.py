@@ -92,7 +92,7 @@ class polynomial_modp(object):
     def __mul__(self, g : polynomial_modp):
         new_coeff = dict()
         for i in range(self.deg + g.deg + 1):
-            new_coeff[i] = sum((self.coeff.get(j, modp(self.p, 0)) * g.coeff.get(i - j, modp(self.p, 0)) for j in range(i+1)), start=modp(5,0))
+            new_coeff[i] = sum((self.coeff.get(j, modp(self.p, 0)) * g.coeff.get(i - j, modp(self.p, 0)) for j in range(i+1)), start=modp(self.p,0))
         return polynomial_modp(self.p, new_coeff)
 
     def __floordiv__(self, g : polynomial_modp):
@@ -144,8 +144,4 @@ def is_composite(p : polynomial_modp) -> bool :
 
 def is_irreducible(p : polynomial_modp) -> bool : return not(is_composite(p))
 
-f = polynomial_modp(5, {0 : modp(5, 1), 1 : modp(5, 1), 2 : modp(5, 1)})
-g = polynomial_modp(5, {0 : modp(5, 2), 1 : modp(5, 1)}) # 2 + x
-h = polynomial_modp(5, {0 : modp(5, 4), 1 : modp(5, 4), 2 : modp(5, 3), 3 : modp(5, 1)})
-
-print(list(filter(lambda p : is_irreducible(p), all_polynomial_upto_deg_n_with_leading_coeff_1(5, 3))))
+print(list(filter(lambda p : is_irreducible(p), all_polynomial_upto_deg_n_with_leading_coeff_1(2, 3))))

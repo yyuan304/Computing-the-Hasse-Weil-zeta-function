@@ -74,6 +74,7 @@ class polynomial_modp(object):
                     return f"x^{k}"
                 else:
                     return f"{v.n}*x^{k}"
+        return "+".join(format(k, v) for k, v in self.coeff.items())
 
     def __add__(self, g : polynomial_modp):
         new_coeff  = dict()

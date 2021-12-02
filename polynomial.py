@@ -31,7 +31,7 @@ class modp(object):
         if g.n% self.p ==0 :
             raise ZeroDivisionError
         return modp(self.p, (self.n * g.n**(self.p-2))%self.p)
-
+      
     def __eq__(self, g : modp):
         if self.p != g.p : 
             raise ValueError
@@ -74,8 +74,6 @@ class polynomial_modp(object):
                     return f"x^{k}"
                 else:
                     return f"{v.n}*x^{k}"
-        return " + ".join([format(k, v) for k,v in self.coeff.items()]) 
-        # + f" mod {self.p}"
 
     def __add__(self, g : polynomial_modp):
         new_coeff  = dict()
@@ -108,6 +106,8 @@ class polynomial_modp(object):
         
         if self.deg < g.deg : 
             return polynomial_modp(self.p, {})
+        elif self.deg == g.deg : 
+            return h 
         else : 
             return h + (self - h * g) // g
 
@@ -144,4 +144,18 @@ def is_composite(p : polynomial_modp) -> bool :
 
 def is_irreducible(p : polynomial_modp) -> bool : return not(is_composite(p))
 
-print(list(filter(lambda p : is_irreducible(p), all_polynomial_upto_deg_n_with_leading_coeff_1(2, 3))))
+               
+f = g = polynomial_modp(5, { 2 : modp(5, 1) }) # x ^ 2
+x = polynomial_modp(5, {0: modp(5, 1), 1: modp(5, 2)})     # 1 + 2x
+h = polynomial_modp(5, {0: modp(5, 3), 1: modp(5, 4)})     # 3 + 4x
+
+
+print(f, g, x, h, f // g, f % x, x // h)
+
+u = polynomial_modp(5, {0: modp(5,1), 1: modp(5,2)})   # 1 + 2x 
+v = polynomial_modp(5, {0: modp(5,1), 1: modp(5,3)})   # 1 + 3x
+print((u+v).deg)
+print(u+v)
+
+t = polynomial_modp(5, {0: modp(5,0), 1:modp(5,1)})    # x
+print(f%t)

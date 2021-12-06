@@ -127,6 +127,8 @@ x = polynomial_modp(5, {0: modp(5, 1), 1: modp(5, 2)})     # 1 + 2x
 h = polynomial_modp(5, {0: modp(5, 3), 1: modp(5, 4)})     # 3 + 4x
 # print(f, g, x, h, f // g, f % x, x // h)
 
+print(f*f)
+
 def all_polynomial_upto_deg_n(p : int, n : int) -> list[polynomial_modp] :
     return [polynomial_modp(p, {k : modp(p, c[k]) for k in range(n+1) if c[k] != 0}) for c in product(*[[i for i in range(p)] for _ in range(n+1)])]
     
@@ -160,3 +162,40 @@ print(u+v)
 
 t = polynomial_modp(5, {0: modp(5,0), 1:modp(5,1)})    # x
 print(f%t)
+
+print(is_irreducible(polynomial_modp(2 , {0: modp(2, 1), 2: modp(2,1)})))
+
+
+for f in all_polynomial_upto_deg_n_with_leading_coeff_1(2,3):
+    if is_irreducible(f) == 1:
+        print(f)
+
+
+def a_monic_irreducible_modp_polynomial_of_deg_n(p: int, n:int):
+    for f in all_polynomial_upto_deg_n_with_leading_coeff_1(p,n):
+        if f.deg == n and is_irreducible(f) == 1:
+            return f
+        
+print(a_monic_irreducible_modp_polynomial_of_deg_n(7,2))
+
+
+def counting_points_of_elliptic_curves(p:int, a: int, b: int, n:int):
+    # counting the number of points of the elliptic curve y^2=x^3+ax+b over the finite field F_{p^n}
+    f = a_monic_irreducible_modp_polynomial_of_deg_n(p,n)
+    k = 0
+    polya = polynomial_modp(p,{0:modp(p,a)})
+    polyb = polynomial_modp(p,{0:modp(p,b)})
+    print(f,polya,polyb)
+    for g in all_polynomial_upto_deg_n(p,n-1):
+        for h in all_polynomial_upto_deg_n(p,n-1):
+            if ((g*g-h*h*h-polya*h-polyb) % f)== polynomial_modp(p,{}):
+                k=k+1
+    return k+1
+
+print(counting_points_of_elliptic_curves(5,1,-1,1))
+#  counting the number of points of the elliptic curve y^2=x^3+x-1 mod 5. It's 9.
+
+
+
+
+    

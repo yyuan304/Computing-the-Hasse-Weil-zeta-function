@@ -40,13 +40,6 @@ class modp(object):
     def __hash__(self):
         return hash(repr(self))
 
-# m1 = modp(5,1)
-# m2 = modp(5,2)
-# m3 = modp(5,3)
-# m4 = modp(5,4)
-# m5 = modp(5,5)
-# print(m1 / m4)
-
 class polynomial_modp(object):
     def __init__(self, p, coeff : dict):
         self.p = p
@@ -165,6 +158,14 @@ def counting_points_of_elliptic_curves(p:int, a: int, b: int, n:int):
             if ((g*g-h*h*h-polya*h-polyb) % f)== polynomial_modp(p,{}):
                 k=k+1
     return k+1 # add the infinity point
+
+
+m1 = modp(5,1)
+m2 = modp(5,2)
+m3 = modp(5,3)
+m4 = modp(5,4)
+m5 = modp(5,5)
+print(m1 / m4)
 
 f = g = polynomial_modp(5, { 2 : modp(5, 1) }) # x ^ 2
 x = polynomial_modp(5, {0: modp(5, 1), 1: modp(5, 2)})     # 1 + 2x

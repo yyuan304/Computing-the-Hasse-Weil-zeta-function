@@ -182,11 +182,12 @@ print(u+v)
 t = polynomial_modp(5, {0: modp(5,0), 1:modp(5,1)})    # x
 print(f%t)
 
-print(is_irreducible(polynomial_modp(2 , {0: modp(2, 1), 2: modp(2,1)})))
+print(is_irreducible(polynomial_modp(2 , {0: modp(2, 1), 2: modp(2,1)}))) # is 1+x^2 irreducible mod 2? 
 
 for f in all_polynomial_upto_deg_n_with_leading_coeff_1(2,3):
     if is_irreducible(f) == 1:
         print(f)
+# print all irreducible polynomials of degree at most 3 mod 2
         
 print(a_monic_irreducible_modp_polynomial_of_deg_n(7,2))
 
